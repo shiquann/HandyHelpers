@@ -1,0 +1,16 @@
+﻿@model List<HandyHelper.Models.Job>
+
+<h1>HandyHelpers</h1>
+<br />
+@foreach (var job in Model)
+{
+<div style="clear: left;" >
+    <img src="~/images/@job.ImageName" style="Height:200px; width:200px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); margin-top:2px; margin-bottom: 20px; float:left;" />
+    <h1 style="margin-left:210px;"><a asp-controller="Home" asp-action="JobPage" asp-route-id="@job.Id">@job.PostingTitle</a></h1> 
+   <p style="margin-left:210px;">@job.Discription</p>
+   <h4 style="margin-left:210px;">&#36;@job.Price</h4>
+    <h4 style="margin-left:215px;">Location: <span>@job.City</span><span>, </span><span>@job.States</span> <span>@job.ZipCode</span></h4>
+   
+</div> 
+}
+

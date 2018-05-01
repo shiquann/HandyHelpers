@@ -1,0 +1,13 @@
+﻿@model HandyHelper.Models.Job
+@if (Model.Email != null)
+{
+    <button class="btn btn-primary">Message Me</button>
+
+}
+
+<h1>@Model.PostingTitle</h1>
+<img src="~/images/@Model.ImageName" />
+<h4>Description: <span style="float:right; margin-right:180px;">Price: &#36;@Model.Price</span></h4>
+<p>@Model.Discription</p>
+
+
