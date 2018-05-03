@@ -1,13 +1,23 @@
 ﻿@model HandyHelper.Models.Job
+
+
+<!---
 @if (Model.Email != null)
 {
     <button class="btn btn-primary" style="float:right; margin-right:180px; margin-top:40px;">Message Me</button>
 
 }
+-->
 
 <h1>@Model.PostingTitle</h1>
-<img src="~/images/@Model.ImageName" style="margin-top:5px;"/>
+<img src="~/images/@Model.ImageName" style="margin-top:5px; height:500px; width:500px;" />
+
+
 <h4>Description: <span style="float:right; margin-right:180px;">Price: &#36;@Model.Price</span></h4>
 <p>@Model.Discription</p>
 
-
+<iframe width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-24NYowlaTWMLNt77t6AZ6EJk4T7FQEE
+    &q=Space+Needle,Seattle+WA" allowfullscreen></iframe>

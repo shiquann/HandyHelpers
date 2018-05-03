@@ -1,6 +1,24 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #fafafa;
+    font-family: 'Roboto', sans-serif;
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #fbb72c;
+        text-decoration: none;
+    }
+
+.text-overflow {
+    white-space: nowrap;
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Wrapping element */
@@ -29,7 +47,20 @@
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
-    .carousel-caption {
-        display: none;
+    @media only screen and (max-width: 960px) {
+        .text {
+            font-size: 5.66666667vw;
+        }
+    }
+
+    @media only screen and (max-width: 564.70588235px) {
+        .text {
+            font-size: 2rem;
+        }
+    }
+    @media only screen and (max-width: 800px){
+        .text-overflow{
+            width:100px;
+        }
     }
 }
