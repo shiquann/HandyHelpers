@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace HandyHelper.Data.Migrations
+namespace HandyHelper.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180426031158_States")]
-    partial class States
+    [Migration("20180512044612_comment")]
+    partial class comment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,12 +73,30 @@ namespace HandyHelper.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("HandyHelper.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("JobId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("HandyHelper.Models.Job", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("City");
+
+                    b.Property<int?>("CommentId");
 
                     b.Property<string>("Discription");
 
@@ -108,7 +126,21 @@ namespace HandyHelper.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommentId");
+
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("HandyHelper.Models.Message", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Messages");
+
+                    b.HasKey("MessageId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -217,6 +249,20 @@ namespace HandyHelper.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("HandyHelper.Models.Comment", b =>
+                {
+                    b.HasOne("HandyHelper.Models.Job")
+                        .WithMany("Comments")
+                        .HasForeignKey("JobId");
+                });
+
+            modelBuilder.Entity("HandyHelper.Models.Job", b =>
+                {
+                    b.HasOne("HandyHelper.Models.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

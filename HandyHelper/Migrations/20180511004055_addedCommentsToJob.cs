@@ -2,23 +2,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace HandyHelper.Data.Migrations
+namespace HandyHelper.Migrations
 {
-    public partial class States : Migration
+    public partial class addedCommentsToJob : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "States",
+            migrationBuilder.AddColumn<string>(
+                name: "Comment",
                 table: "Jobs",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "States",
+                name: "Comment",
                 table: "Jobs");
         }
     }

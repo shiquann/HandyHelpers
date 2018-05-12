@@ -38,6 +38,10 @@ namespace HandyHelper.Models
 
         public string ImageName { get; set; }
 
+        public string Comments { get; set; }
+
+        
+
         public AddJobViewModel()
         {
      

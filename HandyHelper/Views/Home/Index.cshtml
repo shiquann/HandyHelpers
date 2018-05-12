@@ -1,4 +1,5 @@
 ﻿@model List<HandyHelper.Models.Job>
+
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
@@ -6,8 +7,6 @@
   
 
 
-<h1 style="margin-right:130px;">HandyHelpers</h1>
-<br />
 @foreach (var job in Model)
 {
     
@@ -19,7 +18,7 @@
         </div>
         
         <h4 style="margin-left:210px;">&#36;@job.Price</h4>
-        <h4 style="margin-left:215px;">Location: <span>@job.City</span><span>, </span><span>@job.States</span> <span>@job.ZipCode</span></h4>
+        <h4 style="margin-left:215px;">Location: <span style=" color:black">@job.City</span><span style="color:black">, @job.States</span> <span style="color:black">@job.ZipCode</span></h4>
 
     </div>
 }

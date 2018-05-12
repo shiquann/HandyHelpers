@@ -1,23 +1,36 @@
 ﻿@model HandyHelper.Models.Job
 
 
-<!---
-@if (Model.Email != null)
-{
-    <button class="btn btn-primary" style="float:right; margin-right:180px; margin-top:40px;">Message Me</button>
-
-}
--->
-
-<h1>@Model.PostingTitle</h1>
-<img src="~/images/@Model.ImageName" style="margin-top:5px; height:500px; width:500px;" />
+<h1>
+    @Model.PostingTitle <span style="margin-left:300px">
+        <a asp-controller="Home" asp-action="Messenger"><input type="button" value="Message Me" class="btn btn-danger" /></a>
+    </span>
+</h1>
+<img src="~/images/@Model.ImageName" style="margin-top:5px;" />
 
 
 <h4>Description: <span style="float:right; margin-right:180px;">Price: &#36;@Model.Price</span></h4>
 <p>@Model.Discription</p>
 
-<iframe width="600"
-        height="450"
-        frameborder="0" style="border:0"
-        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB-24NYowlaTWMLNt77t6AZ6EJk4T7FQEE
-    &q=Space+Needle,Seattle+WA" allowfullscreen></iframe>
+
+
+<form asp-controller="Home" asp-action="JobPage" method="post">
+
+    <fieldset class="border">
+        <legend class="border">Comment</legend>
+        <div class="form-group">
+            <textarea class="form-control" name="comment"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Comment" class="btn btn-success form-control" />
+
+        </div>
+
+    </fieldset>
+</form>
+
+@foreach(var comment in Model.Comments)
+{
+    <h1>@comment.Text</h1>
+
+}

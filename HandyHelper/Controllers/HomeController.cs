@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Hosting;
 using HandyHelper.ViewModels;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Microsoft.EntityFrameworkCore;
 
 namespace HandyHelper.Controllers
 {
@@ -38,6 +40,7 @@ namespace HandyHelper.Controllers
             AddJobViewModel addJobViewModel = new AddJobViewModel();
             return View(addJobViewModel);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Add(AddJobViewModel addJobViewModel, ICollection<IFormFile> ImageName)
@@ -82,13 +85,49 @@ namespace HandyHelper.Controllers
             return View(addJobViewModel);
         }
 
-        public IActionResult JobPage([FromRoute] int Id)
+        public IActionResult JobPage([FromRoute] int Id, AddCommentViewModel addCommentViewModel )
         {
-            var jobs = context.Jobs.Find(Id);
+            var job = context.Jobs.Where(j => j.Id == Id).Include(J => J.Comments).FirstOrDefault();
+
            
-            return View(jobs);
+
+            return View(job);
+        }
+        [HttpPost]
+        public IActionResult JobPage([FromRoute] int Id, string comment)
+        {
+            var job = context.Jobs.Single(j => j.Id == Id);
+
+            Comment newComment = new Comment
+            {
+
+                Text = comment,
+                Job = job
+
+            };
+            context.Comments.Add(newComment);
+            context.SaveChanges();
+            job = context.Jobs.Where(j => j.Id == Id).Include(J => J.Comments).FirstOrDefault();
+  
+            return View(job);
+        }
+
+        public IActionResult Message()
+        {
+            AddMessageViewModel addMessageViewModel = new AddMessageViewModel();
+            return View(addMessageViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Message(AddMessageViewModel addMessageViewModel)
+        {
+            return View();
         }
     }
-
 }
+ 
+
+  
+
+
     

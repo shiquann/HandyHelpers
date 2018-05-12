@@ -10,8 +10,6 @@ namespace HandyHelper.Models
     public class Job
     {
         public int Id { get; set; }
-
-
         public string PostingTitle { get; set; }
         public string Discription { get; set; }
         public string Name { get; set; }
@@ -26,6 +24,8 @@ namespace HandyHelper.Models
         public int PhoneNumber { get; set; }
         public int ZipCode { get; set; }
         public string ImageName { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
 
 
 

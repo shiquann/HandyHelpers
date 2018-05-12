@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace HandyHelper.Data.Migrations
+namespace HandyHelper.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180418003239_FilePaths")]
-    partial class FilePaths
+    [Migration("20180511011849_refactoredcomments")]
+    partial class refactoredcomments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,28 +73,25 @@ namespace HandyHelper.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("HandyHelper.Models.FilePath", b =>
+            modelBuilder.Entity("HandyHelper.Models.Comment", b =>
                 {
-                    b.Property<int>("FilePathId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("FileName")
-                        .HasMaxLength(255);
+                    b.Property<int>("JobId");
 
-                    b.Property<int>("FileType");
+                    b.Property<string>("Text");
 
-                    b.Property<int>("JobID");
+                    b.HasKey("Id");
 
-                    b.HasKey("FilePathId");
+                    b.HasIndex("JobId");
 
-                    b.HasIndex("JobID");
-
-                    b.ToTable("FilePaths");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("HandyHelper.Models.Job", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("City");
@@ -104,6 +101,8 @@ namespace HandyHelper.Data.Migrations
                     b.Property<string>("Distance");
 
                     b.Property<string>("Email");
+
+                    b.Property<string>("ImageName");
 
                     b.Property<string>("Name");
 
@@ -117,13 +116,27 @@ namespace HandyHelper.Data.Migrations
 
                     b.Property<string>("RetryEmail");
 
+                    b.Property<int>("States");
+
                     b.Property<string>("TypeOfJob");
 
                     b.Property<int>("ZipCode");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Jobs");
+                });
+
+            modelBuilder.Entity("HandyHelper.Models.Message", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Messages");
+
+                    b.HasKey("MessageId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -234,11 +247,11 @@ namespace HandyHelper.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("HandyHelper.Models.FilePath", b =>
+            modelBuilder.Entity("HandyHelper.Models.Comment", b =>
                 {
-                    b.HasOne("HandyHelper.Models.Job", "Job")
-                        .WithMany("FilePaths")
-                        .HasForeignKey("JobID")
+                    b.HasOne("HandyHelper.Models.Job")
+                        .WithMany("Comments")
+                        .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
