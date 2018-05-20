@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HandyHelper.Migrations
 {
-    public partial class All : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,19 +46,6 @@ namespace HandyHelper.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Comments",
-                columns: table => new
-                {
-                    CommentId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Comments = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comments", x => x.CommentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,6 +193,27 @@ namespace HandyHelper.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateTime = table.Column<DateTime>(type: "dateTime2", nullable: false),
+                    JobId = table.Column<int>(nullable: true),
+                    Text = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -244,6 +252,11 @@ namespace HandyHelper.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_JobId",
+                table: "Comments",
+                column: "JobId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -267,9 +280,6 @@ namespace HandyHelper.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Jobs");
-
-            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
@@ -277,6 +287,9 @@ namespace HandyHelper.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Jobs");
         }
     }
 }

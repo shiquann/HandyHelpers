@@ -12,8 +12,8 @@ using System;
 namespace HandyHelper.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511014720_Dbsetup")]
-    partial class Dbsetup
+    [Migration("20180516030211_all")]
+    partial class all
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,9 @@ namespace HandyHelper.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("dateTime2");
 
                     b.Property<int?>("JobId");
 

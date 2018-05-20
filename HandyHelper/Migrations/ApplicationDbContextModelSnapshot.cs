@@ -77,9 +77,14 @@ namespace HandyHelper.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("dateTime2");
+
                     b.Property<int?>("JobId");
 
                     b.Property<string>("Text");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -94,8 +99,6 @@ namespace HandyHelper.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("City");
-
-                    b.Property<int?>("CommentId");
 
                     b.Property<string>("Discription");
 
@@ -125,8 +128,6 @@ namespace HandyHelper.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
-
                     b.ToTable("Jobs");
                 });
 
@@ -136,6 +137,8 @@ namespace HandyHelper.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Messages");
+
+                    b.Property<string>("Title");
 
                     b.HasKey("MessageId");
 
@@ -252,16 +255,9 @@ namespace HandyHelper.Migrations
 
             modelBuilder.Entity("HandyHelper.Models.Comment", b =>
                 {
-                    b.HasOne("HandyHelper.Models.Job")
+                    b.HasOne("HandyHelper.Models.Job", "Job")
                         .WithMany("Comments")
                         .HasForeignKey("JobId");
-                });
-
-            modelBuilder.Entity("HandyHelper.Models.Job", b =>
-                {
-                    b.HasOne("HandyHelper.Models.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

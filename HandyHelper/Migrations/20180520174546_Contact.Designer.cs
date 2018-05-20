@@ -12,8 +12,8 @@ using System;
 namespace HandyHelper.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511004055_addedCommentsToJob")]
-    partial class addedCommentsToJob
+    [Migration("20180520174546_Contact")]
+    partial class Contact
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,6 +31,8 @@ namespace HandyHelper.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("ContactName");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -75,12 +77,21 @@ namespace HandyHelper.Migrations
 
             modelBuilder.Entity("HandyHelper.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Comments");
+                    b.Property<string>("ContactName");
 
-                    b.HasKey("CommentId");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("dateTime2");
+
+                    b.Property<int?>("JobId");
+
+                    b.Property<string>("Text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
 
                     b.ToTable("Comments");
                 });
@@ -91,8 +102,6 @@ namespace HandyHelper.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("City");
-
-                    b.Property<string>("Comment");
 
                     b.Property<string>("Discription");
 
@@ -131,6 +140,8 @@ namespace HandyHelper.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Messages");
+
+                    b.Property<string>("Title");
 
                     b.HasKey("MessageId");
 
@@ -243,6 +254,13 @@ namespace HandyHelper.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("HandyHelper.Models.Comment", b =>
+                {
+                    b.HasOne("HandyHelper.Models.Job", "Job")
+                        .WithMany("Comments")
+                        .HasForeignKey("JobId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

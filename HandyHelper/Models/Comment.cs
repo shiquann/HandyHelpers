@@ -10,5 +10,7 @@ namespace HandyHelper.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public Job Job { get; set; }
+        public DateTime DateTime { get; set; }
+        public string UserName { get; set; }
     }
 }

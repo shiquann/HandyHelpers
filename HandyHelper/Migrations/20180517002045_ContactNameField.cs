@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace HandyHelper.Migrations
 {
-    public partial class addedCommentsToJob : Migration
+    public partial class ContactNameField : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Comment",
-                table: "Jobs",
+                name: "ContactName",
+                table: "AspNetUsers",
                 nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Comment",
-                table: "Jobs");
+                name: "ContactName",
+                table: "AspNetUsers");
         }
     }
 }

@@ -12,8 +12,8 @@ using System;
 namespace HandyHelper.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180511011849_refactoredcomments")]
-    partial class refactoredcomments
+    [Migration("20180520191426_UserNameToJobPage")]
+    partial class UserNameToJobPage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,9 +78,14 @@ namespace HandyHelper.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("JobId");
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("dateTime2");
+
+                    b.Property<int?>("JobId");
 
                     b.Property<string>("Text");
+
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -133,6 +138,8 @@ namespace HandyHelper.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Messages");
+
+                    b.Property<string>("Title");
 
                     b.HasKey("MessageId");
 
@@ -249,10 +256,9 @@ namespace HandyHelper.Migrations
 
             modelBuilder.Entity("HandyHelper.Models.Comment", b =>
                 {
-                    b.HasOne("HandyHelper.Models.Job")
+                    b.HasOne("HandyHelper.Models.Job", "Job")
                         .WithMany("Comments")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("JobId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

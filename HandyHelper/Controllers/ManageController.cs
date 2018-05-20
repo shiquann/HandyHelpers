@@ -69,7 +69,7 @@ namespace HandyHelper.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IndexViewModel model)
+        public async Task<IActionResult> Index(IndexViewModel model )
         {
             if (!ModelState.IsValid)
             {

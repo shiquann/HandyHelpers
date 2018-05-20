@@ -20,7 +20,33 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.comment {
+    background: #e8e8e8;
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+    border-radius: 5px;
+}
 
+comment:after {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        border-left: 20px solid #e8e8e8;
+        position: absolute;
+        top: 10px;
+    }
+.Comment-Username {
+    color:blue;
+}
+
+.Comment-Username:hover{
+    color:blue;
+    text-decoration-line:underline;
+    
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Microsoft.EntityFrameworkCore;
+using HandyHelper.Models.ManageViewModels;
 
 namespace HandyHelper.Controllers
 {
@@ -29,12 +30,16 @@ namespace HandyHelper.Controllers
             context = dbContext;
             _environment = environment;
         }
+        //string user = User.Identity.Name;
+        //ApplicationUser userLoggedin = context.Users.Single(c => c.UserName == user);
 
         public IActionResult Index()
         {
             IList<Job> jobs = context.Jobs.ToList();
             return View(jobs);
         }
+
+        [Authorize]
         public IActionResult Add()
         {
             AddJobViewModel addJobViewModel = new AddJobViewModel();
@@ -94,15 +99,16 @@ namespace HandyHelper.Controllers
             return View(job);
         }
         [HttpPost]
-        public IActionResult JobPage([FromRoute] int Id, string comment)
+        public IActionResult JobPage([FromRoute] int Id, string comment, ApplicationUser applicationUser)
         {
             var job = context.Jobs.Single(j => j.Id == Id);
-
+            var date = DateTime.Now;
             Comment newComment = new Comment
             {
-
+                UserName = User.Identity.Name,
                 Text = comment,
-                Job = job
+                Job = job,
+                DateTime = date,
 
             };
             context.Comments.Add(newComment);
@@ -112,7 +118,7 @@ namespace HandyHelper.Controllers
             return View(job);
         }
 
-        public IActionResult Message()
+        public IActionResult Messenger()
         {
             AddMessageViewModel addMessageViewModel = new AddMessageViewModel();
             return View(addMessageViewModel);
@@ -120,6 +126,16 @@ namespace HandyHelper.Controllers
 
         [HttpPost]
         public IActionResult Message(AddMessageViewModel addMessageViewModel)
+        {
+            if (ModelState.IsValid)
+            { 
+
+            }
+
+            return View();
+        }
+
+        public  IActionResult Test(IndexViewModel indexViewModel)
         {
             return View();
         }

@@ -9,5 +9,6 @@ namespace HandyHelper.Models
     {
         public int MessageId { get; set; }
         public string Messages { get; set; }
+        public string Title { get; set; }
     }
 }

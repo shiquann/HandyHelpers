@@ -24,6 +24,10 @@ namespace HandyHelper.Data
             builder.Entity<Job>()
                 .HasMany(j => j.Comments)
                 .WithOne(c => c.Job);
+
+            builder.Entity<Comment>()
+                .Property(f => f.DateTime)
+                .HasColumnType("dateTime2");
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);

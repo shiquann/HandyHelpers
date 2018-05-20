@@ -1,12 +1,8 @@
 ﻿@model HandyHelper.Models.Job
 
 
-<h1>
-    @Model.PostingTitle <span style="margin-left:300px">
-        <a asp-controller="Home" asp-action="Messenger"><input type="button" value="Message Me" class="btn btn-danger" /></a>
-    </span>
-</h1>
-<img src="~/images/@Model.ImageName" style="margin-top:5px;" />
+<h1>@Model.PostingTitle <span style="margin-left:300px"><a asp-controller="Home" asp-action="Messenger"><input type="button" value="Message Me" class="btn btn-danger" style="position:relative" /></a></span></h1>
+<img src="~/images/@Model.ImageName" style="margin-top:5px; width:100%" />
 
 
 <h4>Description: <span style="float:right; margin-right:180px;">Price: &#36;@Model.Price</span></h4>
@@ -22,15 +18,21 @@
             <textarea class="form-control" name="comment"></textarea>
         </div>
         <div class="form-group">
-            <input type="submit" value="Comment" class="btn btn-success form-control" />
-
+            <input type="submit" value="Post" class="btn btn-success form-control" style="width:100px; float:right; " />
         </div>
-
     </fieldset>
 </form>
+@{
 
-@foreach(var comment in Model.Comments)
-{
-    <h1>@comment.Text</h1>
+    var orderedComments = Model.Comments.OrderByDescending(i => i.Id);
 
+    foreach (var comment in orderedComments)
+    {
+        <div class="comment">
+            <a class="Comment-Username">@comment.UserName</a>
+            <p>@comment.Text</p>
+            <p>@comment.DateTime.ToString("MMMM dd, yyyy h:mm tt")</p>
+        </div>
+    }
 }
+
