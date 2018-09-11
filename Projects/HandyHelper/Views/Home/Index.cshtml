@@ -1,0 +1,24 @@
+﻿@model List<HandyHelper.Models.Job>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+  
+
+
+@foreach (var job in Model)
+{
+
+    <div style="clear: left;">
+        <img src="~/images/@job.ImageName" style="Height:200px; width:200px; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); margin-top:2px; margin-bottom: 20px; float:left;" />
+        <h1 style="margin-left:210px; " class="text"><a asp-controller="Home" asp-action="JobPage" asp-route-id="@job.Id">@job.PostingTitle</a></h1>
+        <div class="text-overflow" style="margin-left:210px;">
+            @job.Discription
+        </div>
+        
+        <h4 style="margin-left:210px;">&#36;@job.Price</h4>
+        <h4 style="margin-left:215px; margin-bottom:100px">Location: <span style=" color:black">@job.City</span><span style="color:black">, @job.States</span> <span style="color:black">@job.ZipCode</span></h4>
+        
+    </div>
+}
